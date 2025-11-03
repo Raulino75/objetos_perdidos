@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Objetos</title>
+</head>
+<body>
+    <h1>📦 Objetos Registrados</h1>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+        </tr>
+
+        {% if objetos %}
+            {% for obj in objetos %}
+            <tr>
+                <td>{{ obj[0] }}</td>
+                <td>{{ obj[1] }}</td>
+                <td>{{ obj[2] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">No hay objetos registrados.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('home') }}">⬅ Volver</a>
+</body>
+</html>

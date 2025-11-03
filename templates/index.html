@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Objetos Perdidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 60px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            margin-top: 80px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📦 Sistema de Objetos Perdidos</h1>
+    </header>
+
+    <div class="container">
+        <p>Selecciona una opción para gestionar los objetos perdidos:</p>
+
+        <a href="{{ url_for('ver_objetos') }}" class="btn">🔍 Ver objetos registrados</a>
+        <a href="{{ url_for('agregar_objeto_html') }}" class="btn">➕ Registrar nuevo objeto</a>
+        <a href="{{ url_for('actualizar_objeto_html', id=1) }}" class="btn">✏️ Actualizar un objeto</a>
+        <a href="{{ url_for('eliminar_objeto_html', id=1) }}" class="btn">🗑️ Eliminar un objeto</a>
+    </div>
+
+    <footer>
+        <p>Desarrollado por Raúl Arturo 🐍 Flask + MySQL</p>
+    </footer>
+</body>
+</html>
