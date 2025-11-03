@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_cors import CORS
 from database import Database
 
@@ -22,7 +22,7 @@ def obtener_objetos():
 def agregar_objeto():
     data = request.get_json()
 
-    nombre_objeto = data.get('nombre_objeto')
+    nombre_objeto = data.get('nombre')
     descripcion = data.get('descripcion')
     fecha_perdida = data.get('fecha_perdida')
     estado = data.get('estado')
@@ -68,7 +68,7 @@ def agregar_objeto_html():
 
         cursor = conn.cursor()
         sql = """
-        INSERT INTO objetos (nombre, descripcion, fecha_perdida, estado, id_lugar, id_usuario)
+        INSERT INTO objetos (nombre_objeto, descripcion, fecha_perdida, estado, id_lugar, id_usuario)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(sql, (nombre, descripcion, fecha_perdida, estado, id_lugar, id_usuario))
@@ -93,8 +93,8 @@ def actualizar_objeto_html(id):
 
         sql = """
         UPDATE objetos 
-        SET nombre=%s, descripcion=%s, fecha_perdida=%s, estado=%s, id_lugar=%s, id_usuario=%s
-        WHERE id=%s
+        SET nombre_objeto=%s, descripcion=%s, fecha_perdida=%s, estado=%s, id_lugar=%s, id_usuario=%s
+        WHERE id_objeto=%s
         """
         cursor.execute(sql, (nombre, descripcion, fecha_perdida, estado, id_lugar, id_usuario, id))
         conn.commit()
@@ -102,17 +102,17 @@ def actualizar_objeto_html(id):
         return redirect(url_for("ver_objetos"))
 
     # Si es GET → mostramos el formulario con los datos actuales
-    cursor.execute("SELECT * FROM objetos WHERE id = %s", (id,))
+    cursor.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
     objeto = cursor.fetchone()
     cursor.close()
 
     return render_template("actualizar_objeto.html", objeto=objeto)
 
-@app.route("/eliminar_objeto/<int:id>", methods=["GET", "POST"])
+@app.route("/eliminar_objeto/<int:id>", methods=["DELETE"])
 def eliminar_objeto_html(id):
     cursor = conn.cursor()
 
-    if request.method == "POST":
+    if request.method == "DELETE":
         cursor.execute("DELETE FROM objetos WHERE id = %s", (id,))
         conn.commit()
         cursor.close()
