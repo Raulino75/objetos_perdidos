@@ -7,29 +7,34 @@
 <body>
     <h1>📦 Objetos Registrados</h1>
 
+    {% if objetos %}
     <table border="1" cellpadding="5">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
+            <th>Fecha pérdida</th>
+            <th>Estado</th>
+            <th>Lugar</th>
+            <th>Usuario</th>
         </tr>
 
-        {% if objetos %}
-            {% for obj in objetos %}
-            <tr>
-                <td>{{ obj[0] }}</td>
-                <td>{{ obj[1] }}</td>
-                <td>{{ obj[2] }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="3">No hay objetos registrados.</td>
-            </tr>
-        {% endif %}
+        {% for obj in objetos %}
+        <tr>
+            <td>{{ obj['id_objeto'] }}</td>
+            <td>{{ obj['nombre_objeto'] }}</td>
+            <td>{{ obj['descripcion'] }}</td>
+            <td>{{ obj['fecha_perdida'] }}</td>
+            <td>{{ obj['estado'] }}</td>
+            <td>{{ obj['lugar'] }}</td>
+            <td>{{ obj['usuario'] }}</td>
+        </tr>
+        {% endfor %}
     </table>
+    {% else %}
+        <p>No hay objetos registrados.</p>
+    {% endif %}
 
-    <br>
-    <a href="{{ url_for('home') }}">⬅ Volver</a>
+    <a href="{{ url_for('home') }}">Volver</a>
 </body>
 </html>
