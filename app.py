@@ -114,7 +114,7 @@ def editar_objeto(id):
         conn.commit()
         cur.close()
 
-        return redirect(url_for("ver_objetos"))
+        return redirect(url_for("actualizar_objeto_html"))
 
     cur.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
     objeto = cur.fetchone()
