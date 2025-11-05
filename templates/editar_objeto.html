@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Objeto</title>
+</head>
+<body>
+    <h1>✏️ Editar Objeto #{{ objeto['id_objeto'] }}</h1>
+
+    <form method="POST">
+        {% for campo, valor in objeto.items() %}
+            {% if campo != 'id_objeto' %}
+                <label>{{ campo.replace('_', ' ').capitalize() }}:</label><br>
+                <input type="text" name="{{ campo }}" value="{{ valor }}"><br><br>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit">Guardar cambios</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('ver_objetos') }}">Volver</a>
+</body>
+</html>

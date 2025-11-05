@@ -6,13 +6,31 @@
 </head>
 <body>
     <h1>🗑️ Eliminar Objeto</h1>
-    <p>¿Seguro que deseas eliminar el objeto <strong>{{ objeto[1] }}</strong>?</p>
+    <p>Selecciona un objeto para eliminar:</p>
 
-    <form action="{{ url_for('eliminar_objeto_html', id=objeto[0]) }}" method="POST">
-        <button type="submit">Sí, eliminar</button>
-    </form>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acción</th>
+        </tr>
+
+        {% for obj in objetos %}
+        <tr>
+            <td>{{ obj[0] }}</td>
+            <td>{{ obj[1] }}</td>
+            <td>{{ obj[2] }}</td>
+            <td>
+                <form action="{{ url_for('eliminar_objeto_html', id=obj[0]) }}" method="POST" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <br>
-    <a href="{{ url_for('ver_objetos') }}">Cancelar</a>
+    <a href="{{ url_for('ver_objetos') }}">Volver</a>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, abort, jsonify, request, render_template, redirect, url_for
 from flask_cors import CORS
 from database import Database
 
@@ -79,51 +79,62 @@ def agregar_objeto_html():
     
     return render_template("crear_objeto.html")
 
-@app.route("/actualizar_objeto/<int:id>", methods=["GET", "POST"])
-def actualizar_objeto_html(id):
-    cursor = conn.cursor()
+# Mostrar todos los objetos con opción de actualizar
+@app.route("/actualizar_objeto", methods=["GET"])
+def actualizar_objeto_html():
+    cur = conn.cursor(dictionary=True)
+    cur.execute("SELECT id_objeto, nombre_objeto, descripcion FROM objetos")
+    objetos = cur.fetchall()
+    cur.close()
+
+    print("DEBUG → objetos:", objetos)  # 👈 añade esta línea
+
+    return render_template("actualizar_objeto.html", objetos=objetos)
+
+
+
+@app.route("/editar_objeto/<int:id>", methods=["GET", "POST"])
+def editar_objeto(id):
+    cur = conn.cursor(dictionary=True)
 
     if request.method == "POST":
-        nombre = request.form["nombre"]
-        descripcion = request.form["descripcion"]
-        id_lugar = request.form["id_lugar"]
-        id_usuario = request.form["id_usuario"]
-        fecha_perdida = request.form["fecha_perdida"]
-        estado = request.form["estado"]
+        # Obtén todos los campos dinámicamente
+        campos = request.form.to_dict()
 
-        sql = """
-        UPDATE objetos 
-        SET nombre_objeto=%s, descripcion=%s, fecha_perdida=%s, estado=%s, id_lugar=%s, id_usuario=%s
-        WHERE id_objeto=%s
-        """
-        cursor.execute(sql, (nombre, descripcion, fecha_perdida, estado, id_lugar, id_usuario, id))
+        # Genera la parte del SQL automáticamente
+        set_clause = ", ".join([f"{campo} = %s" for campo in campos.keys()])
+        valores = list(campos.values()) + [id]
+
+        cur.execute(f"UPDATE objetos SET {set_clause} WHERE id_objeto = %s", valores)
         conn.commit()
-        cursor.close()
+        cur.close()
+
         return redirect(url_for("ver_objetos"))
 
-    # Si es GET → mostramos el formulario con los datos actuales
-    cursor.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
-    objeto = cursor.fetchone()
-    cursor.close()
+    cur.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
+    objeto = cur.fetchone()
+    cur.close()
+    return render_template("editar_objeto.html", objeto=objeto)
 
-    return render_template("actualizar_objeto.html", objeto=objeto)
 
+
+@app.route("/eliminar_objeto", methods=["GET", "POST"])
 @app.route("/eliminar_objeto/<int:id>", methods=["GET", "POST"])
-def eliminar_objeto_html(id):
+def eliminar_objeto_html(id=None):
     cursor = conn.cursor()
 
-    if request.method == "POST":
+    if request.method == "POST" and id is not None:
         cursor.execute("DELETE FROM objetos WHERE id_objeto = %s", (id,))
         conn.commit()
         cursor.close()
-        return redirect(url_for("ver_objetos"))
+        return redirect(url_for("eliminar_objeto_html"))  # volver a la misma página
 
-    # Si es GET → mostramos la confirmación
-    cursor.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
-    objeto = cursor.fetchone()
+    cursor.execute("SELECT id_objeto, nombre_objeto, descripcion FROM objetos")
+    objetos = cursor.fetchall()
     cursor.close()
 
-    return render_template("eliminar_objeto.html", objeto=objeto)
+    return render_template("eliminar_objeto.html", objetos=objetos)
+
 
 
 # ---------------------------
