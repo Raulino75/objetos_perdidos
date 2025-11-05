@@ -80,3 +80,20 @@ class Database:
         self.connection.commit()
         cursor.close()
         print("🗑️ Objeto eliminado correctamente.")
+
+
+        # ----- USUARIOS -----
+    def listar_usuarios(self):
+        cursor = self.connection.cursor(dictionary=True)
+        cursor.execute("SELECT id_usuario, nombre, correo, telefono FROM usuarios")
+        usuarios = cursor.fetchall()
+        cursor.close()
+        return usuarios
+
+
+    def crear_usuario(self, nombre, correo, telefono):
+        cursor = self.connection.cursor()
+        query = "INSERT INTO usuarios (nombre, correo, telefono) VALUES (%s, %s, %s)"
+        cursor.execute(query, (nombre, correo, telefono))
+        self.connection.commit()
+        cursor.close()

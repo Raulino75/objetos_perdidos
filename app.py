@@ -51,6 +51,11 @@ def eliminar_objeto(id):
 def home():
     return render_template('index.html')
 
+@app.route('/index')
+def index():
+    return redirect(url_for('home'))
+
+
 @app.route('/ver_objetos')
 def ver_objetos():
     objetos = db.listar_objetos()
@@ -134,6 +139,28 @@ def eliminar_objeto_html(id=None):
     cursor.close()
 
     return render_template("eliminar_objeto.html", objetos=objetos)
+
+    # ---------------------------
+# 🔹 RUTAS DE USUARIOS
+# ---------------------------
+
+@app.route('/usuarios')
+def ver_usuarios():
+    usuarios = db.listar_usuarios()
+    return render_template('usuarios.html', usuarios=usuarios)
+
+
+@app.route('/agregar_usuario', methods=['GET', 'POST'])
+def agregar_usuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+        db.crear_usuario(nombre, correo, telefono)
+        return redirect(url_for('ver_usuarios'))
+    
+    return render_template('agregar_usuario.html')
+
 
 
 

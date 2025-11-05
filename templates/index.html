@@ -42,6 +42,16 @@
             background-color: #1d4ed8;
         }
 
+        /* 🔹 Botón especial para usuarios (azul más claro) */
+        .btn-usuarios {
+            background-color: #0188b5;
+            margin-top: 40px;
+        }
+
+        .btn-usuarios:hover {
+            background-color: #012f79;
+        }
+
         footer {
             margin-top: 80px;
             color: #555;
@@ -61,6 +71,10 @@
         <a href="{{ url_for('agregar_objeto_html') }}" class="btn">➕ Registrar nuevo objeto</a>
         <a href="{{ url_for('actualizar_objeto_html', id=1) }}" class="btn">✏️ Actualizar un objeto</a>
         <a href="{{ url_for('eliminar_objeto_html', id=1) }}" class="btn">🗑️ Eliminar un objeto</a>
+
+        <!-- 🔹 Nuevo botón de usuarios -->
+        <br>
+        <a href="{{ url_for('ver_usuarios') }}" class="btn btn-usuarios">👥 Gestionar Usuarios</a>
     </div>
 
     <footer>

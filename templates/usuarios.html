@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios Registrados</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8fafc; text-align: center; }
+        table { margin: 30px auto; border-collapse: collapse; width: 80%; }
+        th, td { border: 1px solid #ccc; padding: 10px; }
+        th { background-color: #3b82f6; color: white; }
+    </style>
+</head>
+<body>
+    <h1>👥 Usuarios Registrados</h1>
+
+    {% if usuarios %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+            </tr>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario['id_usuario'] }}</td>
+                <td>{{ usuario['nombre'] }}</td>
+                <td>{{ usuario['correo'] }}</td>
+                <td>{{ usuario['telefono'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No hay usuarios registrados aún.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">⬅ Volver al inicio</a>
+</body>
+</html>
