@@ -108,22 +108,23 @@ def actualizar_objeto_html(id):
 
     return render_template("actualizar_objeto.html", objeto=objeto)
 
-@app.route("/eliminar_objeto/<int:id>", methods=["DELETE"])
+@app.route("/eliminar_objeto/<int:id>", methods=["GET", "POST"])
 def eliminar_objeto_html(id):
     cursor = conn.cursor()
 
-    if request.method == "DELETE":
-        cursor.execute("DELETE FROM objetos WHERE id = %s", (id,))
+    if request.method == "POST":
+        cursor.execute("DELETE FROM objetos WHERE id_objeto = %s", (id,))
         conn.commit()
         cursor.close()
         return redirect(url_for("ver_objetos"))
 
     # Si es GET → mostramos la confirmación
-    cursor.execute("SELECT * FROM objetos WHERE id = %s", (id,))
+    cursor.execute("SELECT * FROM objetos WHERE id_objeto = %s", (id,))
     objeto = cursor.fetchone()
     cursor.close()
 
     return render_template("eliminar_objeto.html", objeto=objeto)
+
 
 # ---------------------------
 # 🔹 EJECUCIÓN DEL SERVIDOR
