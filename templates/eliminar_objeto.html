@@ -3,12 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Objeto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #dc2626;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tr:hover {
+            background-color: #fee2e2;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #b91c1c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #7f1d1d;
+        }
+
+        a.btn-back {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            margin: 15px 5px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        a.btn-back:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+
     <h1>🗑️ Eliminar Objeto</h1>
     <p>Selecciona un objeto para eliminar:</p>
 
-    <table border="1" cellpadding="5">
+    <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -30,7 +118,11 @@
         {% endfor %}
     </table>
 
-    <br>
-    <a href="{{ url_for('ver_objetos') }}">Volver</a>
+    <a href="{{ url_for('ver_objetos') }}" class="btn-back">🏠 Volver</a>
+
+    <footer>
+        <p>Desarrollado por Raúl Arturo 🐍 Flask + MySQL</p>
+    </footer>
+
 </body>
 </html>

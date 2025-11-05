@@ -140,7 +140,7 @@ def eliminar_objeto_html(id=None):
 
     return render_template("eliminar_objeto.html", objetos=objetos)
 
-    # ---------------------------
+# ---------------------------
 # 🔹 RUTAS DE USUARIOS
 # ---------------------------
 

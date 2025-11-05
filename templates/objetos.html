@@ -3,12 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Objetos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tr:hover {
+            background-color: #dbeafe;
+        }
+
+        a.btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            margin: 15px 5px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        a.btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        p.no-data {
+            margin-top: 40px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+
     <h1>📦 Objetos Registrados</h1>
 
     {% if objetos %}
-    <table border="1" cellpadding="5">
+    <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -18,7 +90,6 @@
             <th>Lugar</th>
             <th>Usuario</th>
         </tr>
-
         {% for obj in objetos %}
         <tr>
             <td>{{ obj['id_objeto'] }}</td>
@@ -32,9 +103,14 @@
         {% endfor %}
     </table>
     {% else %}
-        <p>No hay objetos registrados.</p>
+        <p class="no-data">No hay objetos registrados.</p>
     {% endif %}
 
-    <a href="{{ url_for('home') }}">Volver</a>
+    <a href="{{ url_for('home') }}" class="btn">🏠 Volver al inicio</a>
+
+    <footer>
+        <p>Desarrollado por Raúl Arturo 🐍 Flask + MySQL</p>
+    </footer>
+
 </body>
 </html>

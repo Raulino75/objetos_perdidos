@@ -3,36 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Objeto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        form {
+            background-color: white;
+            width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        a.btn-cancel {
+            display: inline-block;
+            background-color: #6b7280;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        a.btn-cancel:hover {
+            background-color: #4b5563;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+
     <h1>🆕 Registrar Nuevo Objeto</h1>
 
     <form action="{{ url_for('agregar_objeto_html') }}" method="POST">
-        <label>Nombre del objeto:</label><br>
-        <input type="text" name="nombre" required><br><br>
+        <label>Nombre del objeto:</label>
+        <input type="text" name="nombre" required>
 
-        <label>Descripción:</label><br>
-        <textarea name="descripcion" required></textarea><br><br>
+        <label>Descripción:</label>
+        <textarea name="descripcion" required></textarea>
 
-        <label>ID Lugar:</label><br>
-        <input type="number" name="id_lugar" required><br><br>
+        <label>ID Lugar:</label>
+        <input type="number" name="id_lugar" required>
 
-        <label>ID Usuario:</label><br>
-        <input type="number" name="id_usuario" required><br><br>
+        <label>ID Usuario:</label>
+        <input type="number" name="id_usuario" required>
 
-        <label>Fecha perdida:</label><br>
-        <input type="date" name="fecha_perdida" required><br><br>
+        <label>Fecha pérdida:</label>
+        <input type="date" name="fecha_perdida" required>
 
-        <label>Estado:</label><br>
+        <label>Estado:</label>
         <select name="estado" required>
             <option value="Perdido">Perdido</option>
             <option value="Encontrado">Encontrado</option>
-        </select><br><br>
+            <option value="Reclamado">Reclamado</option>
+        </select>
 
         <button type="submit">Guardar</button>
+        <a href="{{ url_for('home') }}" class="btn-cancel">⬅ Volver</a>
     </form>
 
-    <br>
-    <a href="{{ url_for('home') }}">⬅ Volver</a>
+    <footer>
+        <p>Desarrollado por Raúl Arturo 🐍 Flask + MySQL</p>
+    </footer>
+
 </body>
 </html>
